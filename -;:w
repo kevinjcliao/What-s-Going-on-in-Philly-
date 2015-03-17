@@ -10,22 +10,14 @@ class Categories:
         self.response_json = json.load(self.response)
         self.categories_json = self.response_json['categories']
         self.category_dict={}
-
-        # Populate the category dictionary with each category_json by
-        # calling the constructor for the category object. 
         for x in range(0, len(self.categories_json)):
-            self.category_json = self.categories_json[x]
-
+            self.category_json = self.categories_json['categories'][x]
             self.category_dict[self.category_json['id']]=Category(self.category_json)
 
-    # Searches the category by ID and returns it. 
-    def getCategory(self, category_id):
-        return self.category_dict[category_id]
 
-# Category Object: 
-# Variable naming has been completely taken from the API. 
-# category_id is the equivalent of id in the JSON Object. It was used
-# because python reserves 'id' for its own uses. 
+    def getCategory(self, category_id):
+        return self.category_list[category_id]
+
 class Category:
     def __init__(self, category_json):
         self.resource_uri           = category_json['resource_uri']
@@ -35,5 +27,4 @@ class Category:
         self.short_name             = category_json['short_name']
         self.short_name_localized   = category_json['short_name_localized']
 
-    def __str__(self): 
-        return self.name
+Categories()
