@@ -1,0 +1,46 @@
+""" 
+Models Tests for Category Search
+(c) Copyright 2015, Kevin Liao. 
+BSc Candidate, Haverford College
+
+TO RUN THIS FILE: 
+Enter the python shell from the same directory. 
+import doctest
+doctest.testfile('tests.txt')
+
+>>> from CategorySearch.models import *
+
+Import category data
+
+>>> My_Categories = Categories()
+Successfully created categories object.
+
+>>> print My_Categories
+199: Other
+116: Seasonal & Holiday
+119: Hobbies & Special Interest
+117: Home & Lifestyle
+118: Auto, Boat & Air
+115: Family & Education
+114: Religion & Spirituality
+108: Sports & Fitness
+109: Travel & Outdoor
+111: Charity & Causes
+110: Food & Drink
+113: Community & Culture
+112: Government & Politics
+102: Science & Technology
+103: Music
+101: Business & Professional
+106: Fashion & Beauty
+107: Health & Wellness
+104: Film, Media & Entertainment
+105: Performing & Visual Arts
+<BLANKLINE>
+
+>>> print My_Categories.getCategory(103)
+Music
+
+>>> My_Events = Events([103])
+
+"""

@@ -1,13 +1,21 @@
+# -*- coding: utf-8 -*-
 import urllib2
 import json
 from pprint import pprint
 
+# CONSTANTS: 
+API_KEY = 'BKKRDKVUVRC5WG4HAVLT'
+
+"""
+CATEGORIES MODELLING: 
+"""
 # The Categories Object is a dictionary object containing category objects. 
 # This dictionary object is stored in category_dict
 class Categories:
     def __init__(self):
         # Loads data from Eventbrite API
-        response = urllib2.urlopen('https://www.eventbriteapi.com/v3/categories/?token=BKKRDKVUVRC5WG4HAVLT')
+        #response = urllib2.urlopen('https://www.eventbriteapi.com/v3/categories/?token=BKKRDKVUVRC5WG4HAVLT')
+        response = urllib2.urlopen(self.createRequestURL())
         response_json = json.load(response)
         categories_json = response_json['categories']
         self.category_dict={}
@@ -19,19 +27,25 @@ class Categories:
 
             self.category_dict[category_json['id']]=Category(category_json)
 
-        pprint(response_json)
+        print "Successfully created categories object. A total of " + str(x) + \
+            " categories were imported."
 
     # Lists all the categories by their full name. 
     def __str__(self):
         strToReturn = ""
         for category_id, category in self.category_dict.iteritems():
-            strToReturn += str(category)+"\n"
+            strToReturn += category_id + ": " + str(category)+"\n"
 
         return strToReturn
 
+    # Returns the appropriate URL to request given the API Token. 
+    def createRequestURL(self):
+        urlToReturn = 'https://www.eventbriteapi.com/v3/categories/?token='
+        return urlToReturn + API_KEY
+
     # Searches the category by ID and returns it. 
     def getCategory(self, category_id):
-        return self.category_dict[category_id]
+        return self.category_dict[str(category_id)]
 
     # Get Category dict: 
     def getCategoryDict(self):
@@ -53,6 +67,10 @@ class Category:
     def __str__(self):
         return self.name
 
+"""
+EVENTS MODELLING
+"""
+
 # EventResults stores the result of a search as a dictionary by event_id
 # against a BasicEvent. 
 class EventResults:
@@ -60,9 +78,23 @@ class EventResults:
         # Formulate RequestURL from constructor variables. 
         urlToRequest = self.createRequestURL(category_id_list)
         print "Requesting: " + urlToRequest
-        self.response_json = json.load(urllib2.urlopen(urlToRequest))
+        events_json = json.load(urllib2.urlopen(urlToRequest))
+        events_json = events_json['events']
+        self.events_dict = {}
 
-        pprint(self.response_json)
+        # Create objects by iterating through for loop like above: 
+        for x in range(0, len(events_json)):
+            event_json = events_json[x]
+            self.events_dict[str(event_json['id'])] = Event(event_json)
+
+        print "Successfully imported " + x + " events."
+
+    # Lists all the events by their id and full name. 
+    def __str__(self):
+        strToReturn = ""
+        for event_id, event in self.events_dict.iteritems():
+            strToReturn += event_id + ": " + event.name + "\n"
+        return strToReturn
 
     def createRequestURL(self, category_id_list):
         urlToReturn="https://www.eventbriteapi.com/v3/events/search/?categories="
@@ -82,5 +114,8 @@ class EventResults:
 # final data the user's browser needs to download much smaller, there will be
 # performance benefits. 
 
-
-
+class Event:
+    def __init__(self, event_json):
+        self.name = event_json['name']['html'].encode("utf-8-sig")
+    def __str__(self):
+        return self.name
