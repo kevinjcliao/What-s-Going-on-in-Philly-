@@ -6,6 +6,8 @@
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="{% static 'js/models.js' %}"></script>
 <script src="{% static 'js/views.js' %}"></script>
+<link rel='stylesheet' href="{% static 'styles/main.css' %}">
+<link rel='stylesheet' href="{% static 'styles/index.css' %}">
 </head>
 
 <body>
@@ -26,5 +28,10 @@
 {% endfor %}
 </select>
 <button type="submit" id="send_button">Search</button>
+<div id="loading"></div>
+
+<div id="events">
+	<h2 id="events_title">Events Found: </h2>
+</div>
 </body>
 </html>

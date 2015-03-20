@@ -17,7 +17,6 @@ function loadEvents(options, callback){
 
 	// Make API Request: 
 	$.getJSON((urlToRequest), function (data){
-		console.log('Callback being called.'); 
 		console.log(data['events']); 
 		events = data['events']; 
 		callback(events); 
