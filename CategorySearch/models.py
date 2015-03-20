@@ -7,7 +7,7 @@ from pprint import pprint
 API_KEY = 'BKKRDKVUVRC5WG4HAVLT'
 
 """
-CATEGORIES MODELLING: 
+CATEGORIES MODELLING:
 """
 # The Categories Object is a dictionary object containing category objects. 
 # This dictionary object is stored in category_dict
@@ -103,7 +103,7 @@ class EventResults:
             if x<len(category_id_list)-1:
                 urlToReturn+=","
 
-        urlToReturn+="&token=BKKRDKVUVRC5WG4HAVLT"
+        urlToReturn+="&token=" + API_KEY
 
         return urlToReturn
 

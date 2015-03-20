@@ -1,17 +1,25 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html>
+<head>
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="{% static 'js/models.js' %}"></script>
+<script src="{% static 'js/views.js' %}"></script>
+</head>
+
 <body>
-<select>
+<select id= "category_select1">
 {% for Category_id, Category in Categories.items %}
 	<option value={{Category.category_id}}>{{Category.name}}</option>
 {% endfor %}
 </select>
-<select>
+<select id = "category_select2">
 {% for Category_id, Category in Categories.items %}
 	<option value={{Category.category_id}}>{{Category.name}}</option>
 {% endfor %}
 </select>
-<select>
+<select id="category_select3">
 {% for Category_id, Category in Categories.items %}
 	<option value={{Category.category_id}}>{{Category.name}}</option>
 {% endfor %}
