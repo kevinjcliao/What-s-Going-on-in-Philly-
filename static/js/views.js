@@ -15,8 +15,8 @@ $(document).ready( function(){
 			console.log("Event complete!"); 
 			console.log(events); 
 			console.log("Operation terminated."); 
-		}); 
-	}); 
-}); 
+		}); //End loadEvents
+	}); //End sendButton
+}); //End document.ready
 
 
