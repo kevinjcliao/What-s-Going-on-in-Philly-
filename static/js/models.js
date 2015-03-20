@@ -5,27 +5,27 @@
 
 var API_KEY = "BKKRDKVUVRC5WG4HAVLT"
 
-function loadEvents(options){
+function loadEvents(options, callback){
 	console.log("Running Load Events for IDs: " + options[0] + ", " + options[1] + ", " + options[2]); 
 	var urlToRequest = getURL(options); 
 	console.log("Requesting from: " + urlToRequest); 
 	var events = 0; 
+
+	// Make API Request: 
 	$.getJSON((urlToRequest), function (data){
+		console.log('Callback being called.'); 
 		console.log(data['events']); 
 		events = data['events']; 
-		if(events!=0){
-			return events; 
-		}
-		else{
-			console.log("Err: Events request failed."); 
-			return 0;
-		}
+		callback(events); 
 	});
 
 }
 
+// Returns the 
 function getURL(options){
 	var urlToReturn = "https://www.eventbriteapi.com/v3/events/search/?" + 
+		// New Specifiers can be defined by: 
+		// "&Specifier=" + WHAT_IS_BEING_SPECIFIED
 		"venue.city="  + "Philadelphia" +
 		"&categories=" + options[0] +
 		"&token="      + API_KEY; 

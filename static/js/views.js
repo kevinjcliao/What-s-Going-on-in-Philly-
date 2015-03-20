@@ -11,9 +11,11 @@ $(document).ready( function(){
 			$('#category_select3 option:selected').val(), 
 			];
 		console.log(options); 
-		var events_data = loadEvents(options); 
-		console.log(events); 
-		console.log("Operation terminated."); 
+		loadEvents(options, function(events){
+			console.log("Event complete!"); 
+			console.log(events); 
+			console.log("Operation terminated."); 
+		}); 
 	}); 
 }); 
 
