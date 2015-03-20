@@ -3,7 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- JQuery -->
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<!-- Own inclusions: -->
 <script src="{% static 'js/models.js' %}"></script>
 <script src="{% static 'js/views.js' %}"></script>
 <link rel='stylesheet' href="{% static 'styles/main.css' %}">
@@ -11,27 +23,33 @@
 </head>
 
 <body>
-<h1>What's Going On in Philly?</h1>
-<select id= "category_select1">
-{% for Category_id, Category in Categories.items %}
-	<option value={{Category.category_id}}>{{Category.name}}</option>
-{% endfor %}
-</select>
-<select id = "category_select2">
-{% for Category_id, Category in Categories.items %}
-	<option value={{Category.category_id}}>{{Category.name}}</option>
-{% endfor %}
-</select>
-<select id="category_select3">
-{% for Category_id, Category in Categories.items %}
-	<option value={{Category.category_id}}>{{Category.name}}</option>
-{% endfor %}
-</select>
-<button type="submit" id="send_button">Search</button>
-<div id="loading"></div>
+<div id="search_bar">
+	<h1 id="website_title">What's Going On in Philly?</h1>
+	<div id="selectors">
+		<select id= "category_select1" class="selector">
+			{% for Category_id, Category in Categories.items %}
+			<option value={{Category.category_id}}>{{Category.name}}</option>
+			{% endfor %}
+		</select>
+		<select id = "category_select2" class="selector">
+			{% for Category_id, Category in Categories.items %}
+			<option value={{Category.category_id}}>{{Category.name}}</option>
+			{% endfor %}
+		</select>
+		<select id="category_select3" class="selector">
+			{% for Category_id, Category in Categories.items %}
+			<option value={{Category.category_id}}>{{Category.name}}</option>
+			{% endfor %}
+		</select>
+	</div><!--End selectors-->
+	<button type="submit" id="send_button">Search</button>
+</div>
 
-<div id="events">
-	<h2 id="events_title">Events Found: </h2>
+<div id="content_container">
+
+	<div id="events">
+		<h2 id="events_title">Events Found: </h2>
+	</div>
 </div>
 </body>
 </html>

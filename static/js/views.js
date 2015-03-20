@@ -1,5 +1,6 @@
 
 $(document).ready( function(){
+
 	// Event Listener passes data to the models.loader to fetch
 	// categories from the EventBrite API. 
 	$('#send_button').click( function() {
@@ -25,8 +26,13 @@ function displayEvents(events){
 	var event_name, event_time, event_location, fragment_to_append; 
 	for (i=0; i<events.length; i++){
 		event_name = events[i]["name"]["html"]; 
+		event_location = events[i]["venue"]["address"]["address_1"]; 
+		if(event_location==null){
+			event_location = "Location unspecified"; 
+		}
 		fragment_to_append = "<div id=result_event" + i + ">" +
-			event_name + 
+			"<h3>" + event_name + "</h3>" +
+			"<b>" + event_location + "</b>" +
 			"</div>"; 
 		console.log("appending " + fragment_to_append); 
 		$('#events').append(fragment_to_append); 

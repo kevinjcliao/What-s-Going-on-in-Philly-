@@ -30,7 +30,9 @@ function getURL(options){
 		// New Specifiers can be defined by: 
 		// "&Specifier=" + WHAT_IS_BEING_SPECIFIED
 		"venue.city="  + "Philadelphia" +
-		"&categories=" + options[0] +
+		"&categories=" + options[0] + "," +
+			options[1] + "," + 
+			options[2] +
 		"&token="      + API_KEY; 
 	return urlToReturn; 
 }
