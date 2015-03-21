@@ -15,34 +15,67 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+<!-- Roboto: -->
+<link href='http://fonts.googleapis.com/css?family=Roboto&subset=latin,cyrillic,latin-ext,vietnamese,greek,greek-ext,cyrillic-ext' rel='stylesheet' type='text/css'>
+
 <!-- Own inclusions: -->
 <script src="{% static 'js/models.js' %}"></script>
 <script src="{% static 'js/views.js' %}"></script>
+<script src="{% static 'js/models.js' %}"></script>
+
 <link rel='stylesheet' href="{% static 'styles/main.css' %}">
 <link rel='stylesheet' href="{% static 'styles/index.css' %}">
+
 </head>
 
 <body>
-<div id="search_bar">
-	<h1 id="website_title">What's Going On in Philly?</h1>
-	<div id="selectors">
+
+<div id="title_bar">
+	<ul>
+
+		<li>
+		<h3 id="website_title">What's Going On in Philly?</h3>
+		</li>
+		<li>
+		<a>
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		</a>	
+		</li>
+
+	</ul>
+</div>
+
+<div id="search_query">
+	<ul>
+		<li>
 		<select id= "category_select1" class="selector">
 			{% for Category_id, Category in Categories.items %}
 			<option value={{Category.category_id}}>{{Category.name}}</option>
 			{% endfor %}
 		</select>
+		</li>
+		<li>
 		<select id = "category_select2" class="selector">
 			{% for Category_id, Category in Categories.items %}
 			<option value={{Category.category_id}}>{{Category.name}}</option>
 			{% endfor %}
 		</select>
+		</li>
+		<li>
 		<select id="category_select3" class="selector">
 			{% for Category_id, Category in Categories.items %}
 			<option value={{Category.category_id}}>{{Category.name}}</option>
 			{% endfor %}
 		</select>
-	</div><!--End selectors-->
-	<button type="submit" id="send_button">Search</button>
+		</li>
+		<li>
+		<input class="span2" size="16" type="text" value="12-02-2012">
+		<span class="add-on"><i class="icon-th"></i></span>
+		</li>
+		<li>
+		<button type="submit" id="send_button">Search</button>
+		</li>
+	</ul>
 </div>
 
 <div id="content_container">
@@ -50,6 +83,13 @@
 	<div id="events">
 		<h2 id="events_title">Events Found: </h2>
 	</div>
+
+	<iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBb8GOC34oXQFicfURjC5A09KAHBY8az2o&q=Space+Needle,Seattle+WA">
+</iframe>
 </div>
 </body>
 </html>

@@ -1,11 +1,12 @@
 
 $(document).ready( function(){
-
 	// Event Listener passes data to the models.loader to fetch
 	// categories from the EventBrite API. 
+	
 	$('#send_button').click( function() {
 		// Collect information from category selectors. 
 		console.log("Send button pressed."); 
+		$('#search_query').hide('slow'); 
 		var options = [
 			$('#category_select1 option:selected').val(), 
 			$('#category_select2 option:selected').val(), 
@@ -20,6 +21,10 @@ $(document).ready( function(){
 			displayEvents(events); 
 		}); //End loadEvents
 	}); //End sendButton
+
+	$('span.glyphicon-search').click( function() {
+		$('#search_query').toggle('slow'); 
+	}); 
 }); //End document.ready
 
 function displayEvents(events){
@@ -30,7 +35,8 @@ function displayEvents(events){
 		if(event_location==null){
 			event_location = "Location unspecified"; 
 		}
-		fragment_to_append = "<div id=result_event" + i + ">" +
+
+		fragment_to_append = "<div id='result_event" + i + "'" + "class=result_event>" +
 			"<h3>" + event_name + "</h3>" +
 			"<b>" + event_location + "</b>" +
 			"</div>"; 
