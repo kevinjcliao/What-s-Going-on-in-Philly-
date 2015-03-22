@@ -57,11 +57,16 @@ span.glyphicon-search {
 	color: #eeeeee; 
 }
 
-
-
-#events{
-	display: none; 
+#event_left {
+	width: 50%; 
+	float: left; 
 }
+
+#event_right {
+	width: 50%; 
+	float: right; 
+}
+
 
 #loading {
 	display: none; 
@@ -81,7 +86,10 @@ span.glyphicon-search {
 }
 
 .result_event {
-	box-shadow: 1px 1px 1px 1px #e0e0e0; 
+	box-shadow: 1px 1px 1px 1px #e0e0e0;
+	width: 100%; 
+	display: inline-block; 
+	margin-bottom: 1em;
 }
 
 #result_location_name {
