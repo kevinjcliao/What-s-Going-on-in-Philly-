@@ -25,6 +25,7 @@
 
 <link rel='stylesheet' href="{% static 'styles/main.css' %}">
 <link rel='stylesheet' href="{% static 'styles/index.css' %}">
+<link rel='stylesheet' href="{% static 'styles/spinner.css' %}">
 
 </head>
 
@@ -38,7 +39,7 @@
 		</li>
 		<li>
 		<a>
-		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 		</a>	
 		</li>
 
@@ -79,17 +80,24 @@
 </div>
 
 <div id="content_container">
+	<div id="search_help_text">
+		<h4>
+			Search for relevant events by selecting three categories.
+		</h4>
+	</div>
 
+	<!-- Loading Spinner all in CSS. -->
+	<div id='loading'>
+		<img src="{% static 'images/loading.gif' %}">
+	</div>	
 	<div id="events">
 		<h2 id="events_title">Events Found: </h2>
 	</div>
-
-	<iframe
-  width="600"
-  height="450"
-  frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBb8GOC34oXQFicfURjC5A09KAHBY8az2o&q=Space+Needle,Seattle+WA">
-</iframe>
+	<div id="follow_up_action">
+		<h3>Keep scrolling for more!</h3>
+	</div>
 </div>
+
+
 </body>
 </html>
