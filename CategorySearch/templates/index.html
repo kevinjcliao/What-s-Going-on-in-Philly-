@@ -49,6 +49,9 @@
 <div id="search_query">
 	<ul>
 		<li>
+			<b>Please select your favourite three categories.</b>
+		</li>
+		<li>
 		<select id= "category_select1" class="selector">
 			{% for Category_id, Category in Categories.items %}
 			<option value={{Category.category_id}}>{{Category.name}}</option>
@@ -68,10 +71,6 @@
 			<option value={{Category.category_id}}>{{Category.name}}</option>
 			{% endfor %}
 		</select>
-		</li>
-		<li>
-		<input class="span2" size="16" type="text" value="12-02-2012">
-		<span class="add-on"><i class="icon-th"></i></span>
 		</li>
 		<li>
 		<button type="submit" id="send_button">Search</button>
