@@ -81,8 +81,16 @@ function createNewHtmlFragment(event_to_display, MAP_API_KEY){
 	var event_name 		 	 	= event_to_display["name"]["html"]; 
 	var event_location	 	= event_to_display["venue"]["address"]["address_1"]; 
 	var event_url 			 	= event_to_display["url"]; 
-	var event_description = event_to_display["description"]["text"]; 
+
 	var event_time  			= (new Date(event_to_display["start"]["local"])).toString(); 
+	
+	// JavaScript really likes to throw an error when event_description is a null,
+	// so I've put it inside this try_catch. 
+	try{ 
+		var event_description = event_to_display["description"]["text"]; 
+	} catch(err){
+		var event_description = "No description provided. "; 
+	}
 
 	// Cut event_description: 
 	if (event_description.length>400){
@@ -90,9 +98,12 @@ function createNewHtmlFragment(event_to_display, MAP_API_KEY){
 		event_description = event_description+"..."; 
 	}
 	
+	// Handle null locations.	
 	if(event_location == null) {
 		event_location = "Location unspecified."; 
 	}
+
+
 
 	var html_fragment =  "<div id='result_event" + i + "'" + 
 			"class=result_event style='display: none'>" + 

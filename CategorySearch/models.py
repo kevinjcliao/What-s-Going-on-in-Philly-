@@ -2,6 +2,7 @@
 import urllib2
 import json
 from pprint import pprint
+import collections
 
 # CONSTANTS: 
 API_KEY = 'BKKRDKVUVRC5WG4HAVLT'
@@ -26,6 +27,9 @@ class Categories:
             category_json = categories_json[x]
 
             self.category_dict[category_json['id']]=Category(category_json)
+
+        # Sort categories. 
+        self.category_dict = collections.OrderedDict(sorted(self.category_dict.items()))
 
         print "Successfully created categories object. A total of " + str(x) + \
             " categories were imported."

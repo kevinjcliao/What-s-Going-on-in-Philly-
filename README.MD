@@ -20,7 +20,7 @@ Here is an honest assessment of where I think I am after completing this assignm
 I was proud of what I was able to accomplish with front-end design. Although the design isn’t responsive, It does look great on full-screen web browsers. I felt that when I worked in Django, my code was very clearly organized, as I am well-trained in Object-Oriented design and writing clean code in OOP. 
 
 ### My weaknesses: 
-There are many points of optimization primarily relating to asynchronous execution of loading and displaying that I have in my head, but don’t have the time to implement at the moment. I’m still not used to event-driven programming model and asynchronous callbacks that JavaScript uses. As such, I’d definitely like to work on cleaning up my JS and event-driven code in the future.
+I’m still not used to event-driven programming model and asynchronous callbacks that JavaScript uses. As such, I’d definitely like to work on cleaning up my JS and event-driven code in the future.
 
 ### Acknowledgments: (Thanks gaiz)
 * [Glyphicons](http://marcoceppi.github.io/bootstrap-glyphicons/): The source of that beautiful search icon you see in that glorious navigation bar. 
