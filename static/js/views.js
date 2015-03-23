@@ -22,12 +22,13 @@ $(document).ready( function(){
 		var loading_complete = false; 
 
 		// Pass to models.js: 
-		loadEvents(options, function(events, page_count, page_size){
+		// Load the first page. 
+		loadEvents(options, 1, function(events, page_count, page_size){
 			console.log("There are " + page_size + " events."); 
 			var current_counter=0; 
 
 			$('#events_title').show(200); 
-			displayOnePage(current_counter, events); 
+			displayOnePage(current_counter, page_size, events); 
 		}); //End loadEvents
 	}); //End sendButton
 
@@ -40,9 +41,9 @@ $(document).ready( function(){
 
 // Displays an entire 'page' of EventBrite API contents. Basically calls
 // displayFiveEvents repetitively. 
-function displayOnePage(current_counter, events, callback){
-	displayNextFewEvents(current_counter, events, function() {
-	
+function displayOnePage(current_counter, page_size, events, callback){
+
+	displayNextFewEvents(current_counter, page_size, events, function() {
 		$('#loading').hide('slow'); 
 		console.log('displayEvents: Callback!'); 
 		$('#follow_up_action').show('slow'); 
@@ -51,10 +52,14 @@ function displayOnePage(current_counter, events, callback){
 			
 	$(window).scroll(function (){
 		if ($(window).scrollTop() == $(document).height() - $(window).height()){
-			displayNextFewEvents(current_counter, events, function(){
-				console.log("Showing five more events."); 
-				current_counter += 5; 
-			}); 
+			if (current_counter<50){
+				displayNextFewEvents(current_counter, page_size, events, function(){
+					console.log("Showing five more events."); 
+					current_counter += 5; 
+				}); 
+			} else {
+				alert("It's time to load new events."); 
+			}
 		}
 	}); 
 }
@@ -62,20 +67,32 @@ function displayOnePage(current_counter, events, callback){
 
 // Displays next few events. Usually five unless there is less than
 // five events left. In which case, it displays that amount. 
-function displayNextFewEvents(initial_counter, events, callback){
+function displayNextFewEvents(initial_counter, page_size, events, callback){
 	console.log('initial_counter: ' + initial_counter); 
+
+	// If there are less than five events, display those events. Not five. 
+	if (page_size-initial_counter<5){
+		var maximum_display_counter = page_size - initial_counter; 
+	}
+	else{
+		var maximum_display_counter = initial_counter +5; 
+
+	}
+
+	console.log("maximum_display_counter: " + maximum_display_counter); 
 
 	// Selects a rational maximum amount of events to load before more
 	// scrolling is required. 
-	var maximum_display_counter = initial_counter +5; 
 	for (i=initial_counter; i<maximum_display_counter; i++){
 		
 		//Passes event to models.js function.  
+		console.log("Sending " + events[i]  + " to models.js"); 
 		fragment_to_append = createNewHtmlFragment(events[i], MAP_API_KEY); 
 
-		console.log("appending " + fragment_to_append); 
 		$('#events').append(fragment_to_append); 
-		$('#result_event'+i).show('slow'); 
+		$('#result_event'+i).show(function(){
+			console.log("Successfully displayed event"+i); 	
+		}); 
 	}
 
 	// Give Google Maps requests time to load. 	

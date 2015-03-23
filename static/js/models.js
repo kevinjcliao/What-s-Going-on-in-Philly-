@@ -9,9 +9,9 @@ var API_KEY = "BKKRDKVUVRC5WG4HAVLT"
 // In order to call the data from load events, 
 // place a callback that handles the events variable. 
 // e.g. loadEvents(options, function(events){}); 
-function loadEvents(options, callback){
+function loadEvents(options, page_number, callback){
 	console.log("Running Load Events for IDs: " + options[0] + ", " + options[1] + ", " + options[2]); 
-	var urlToRequest = getURL(options); 
+	var urlToRequest = getURL(options, page_number); 
 	console.log("Requesting from: " + urlToRequest); 
 
 	// Make API Request: 
@@ -29,7 +29,7 @@ function loadEvents(options, callback){
 }
 
 // Returns the appropriate URL: 
-function getURL(options){
+function getURL(options, page_number){
 	var urlToReturn = "https://www.eventbriteapi.com/v3/events/search/?" + 
 		// New Specifiers can be defined by: 
 		// "&Specifier=" + WHAT_IS_BEING_SPECIFIED
@@ -37,16 +37,17 @@ function getURL(options){
 		"&categories=" + options[0] + "," +
 			options[1] + "," + 
 			options[2] +
+		"&page="			+ page_number +
 		"&token="      + API_KEY; 
 	return urlToReturn; 
 }
 
 function createNewHtmlFragment(event_to_display, MAP_API_KEY){
-	var event_name, event_time, event_location, fragment_to_append; 
-	event_name 		 	 	= event_to_display["name"]["html"]; 
-	event_location	 	= event_to_display["venue"]["address"]["address_1"]; 
-	event_url 			 	= event_to_display["url"]; 
-	event_time  			= null; 
+
+	var event_name 		 	 	= event_to_display["name"]["html"]; 
+	var event_location	 	= event_to_display["venue"]["address"]["address_1"]; 
+	var event_url 			 	= event_to_display["url"]; 
+	var event_time  			= null; 
 	
 	if(event_location == null) {
 		event_location = "Location unspecified."; 
