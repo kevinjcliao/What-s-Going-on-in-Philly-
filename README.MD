@@ -7,11 +7,11 @@ cd into the root directory of the project.
 and then access the app on localhost:8000. Voila! 
 
 ## Understanding the code: 
-### Categories: 
+### Categories: (Done in Django)
 When the user requests a webpage from the Django application, the Django app makes an API request first to the Eventbrite server. No data is ever stored server-side as Eyal told me to store as little data as I could. These categories are passed into a Django template that is then served to the user. 
 
-### Events: 
-Upon submitting the search request, the client-side webapp calls the Eventbrite API. This is then presented to the user. 
+### Events: (Done in JS)
+Upon submitting the search request, the client-side webapp calls the Eventbrite API. This is then presented to the user. Event handling is stored in static/js/models.js and static/js/views.js. 
 
 ## Note to recruiters: 
 Here is an honest assessment of where I think I am after completing this assignment. I developed this application with the time that I had outside of class and schoolwork, and I definitely learned a lot. (Which was quite an enjoyable learning experience.) 
