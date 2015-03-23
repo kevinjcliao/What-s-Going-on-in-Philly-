@@ -52,13 +52,13 @@ function displayOnePage(current_counter, page_size, events, callback){
 			
 	$(window).scroll(function (){
 		if ($(window).scrollTop() == $(document).height() - $(window).height()){
-			if (current_counter<50){
+			if (current_counter<events.length){
 				displayNextFewEvents(current_counter, page_size, events, function(){
 					console.log("Showing five more events."); 
 					current_counter += 5; 
 				}); 
 			} else {
-				alert("It's time to load new events."); 
+				alert("Out of events."); 
 			}
 		}
 	}); 

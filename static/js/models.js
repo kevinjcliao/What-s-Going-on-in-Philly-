@@ -81,7 +81,14 @@ function createNewHtmlFragment(event_to_display, MAP_API_KEY){
 	var event_name 		 	 	= event_to_display["name"]["html"]; 
 	var event_location	 	= event_to_display["venue"]["address"]["address_1"]; 
 	var event_url 			 	= event_to_display["url"]; 
-	var event_time  			= null; 
+	var event_description = event_to_display["description"]["text"]; 
+	var event_time  			= (new Date(event_to_display["start"]["local"])).toString(); 
+
+	// Cut event_description: 
+	if (event_description.length>400){
+		event_description = event_description.substring(0, 400); 
+		event_description = event_description+"..."; 
+	}
 	
 	if(event_location == null) {
 		event_location = "Location unspecified."; 
@@ -91,6 +98,9 @@ function createNewHtmlFragment(event_to_display, MAP_API_KEY){
 			"class=result_event style='display: none'>" + 
 			"<div id='event_left'>" +
 			"<h3><a href='" + event_url + "'>" + event_name + "</a></h3>" +
+			"<b>" + event_time + "</b>" + "</br>" + "</br>" +
+			"<b>Description</b>" + 
+			"<p>" + event_description + "</p>" + 
 			"</div>" +
 			"<div id='event_right'>" +
 			// Google Maps API Request
