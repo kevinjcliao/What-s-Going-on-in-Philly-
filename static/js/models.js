@@ -36,3 +36,22 @@ function getURL(options){
 		"&token="      + API_KEY; 
 	return urlToReturn; 
 }
+
+function createNewHtmlFragment(event_number, event_url, event_name, MAP_API_KEY, event_location){
+	var HtmlFragment =  "<div id='result_event" + i + "'" + 
+			"class=result_event style='display: none'>" + 
+			"<div id='event_left'>" +
+			"<h3><a href='" + event_url + "'>" + event_name + "</a></h3>" +
+			"</div>" +
+			"<div id='event_right'>" +
+			// Google Maps API Request
+			"<iframe id='map' width='300' height='300' frameborder='0' style='border:0' "+ 
+			"src='https://www.google.com/maps/embed/v1/place?key=" + MAP_API_KEY +
+			"&q=" + event_location + ", Philadelphia'>" + 
+			"</iframe>" + "<br>" +
+			"<p class='result_location_name'>" + event_location + "</p>"  +
+			"</div>" +
+			"</div>"; 
+
+	return HtmlFragment; 
+}

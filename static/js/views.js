@@ -7,10 +7,13 @@ $(document).ready( function(){
 	$('#send_button').click( function() {
 		// Collect information from category selectors. 
 		console.log("Send button pressed."); 
+
+		//Show loading. 
 		$('#search_help_text').hide('slow'); 
 		$('#search_query').hide('slow'); 
 		$('#loading').show('slow'); 
 
+		// Get information from boxes. 
 		var options = [
 			$('#category_select1 option:selected').val(), 
 			$('#category_select2 option:selected').val(), 
@@ -18,6 +21,7 @@ $(document).ready( function(){
 		];
 		var loading_complete = false; 
 
+		// Pass to models.js: 
 		loadEvents(options, function(events){
 			var current_counter=0; 
 
@@ -61,8 +65,7 @@ function displayEvents(initial_counter, events, callback){
 
 	// Selects a rational maximum amount of events to load before more
 	// scrolling is required. 
-	var maximum_display_counter = initial_counter+5; 
-
+	var maximum_display_counter = initial_counter +5; 
 	for (i=initial_counter; i<=maximum_display_counter; i++){
 		// Variable creation: 
 		event_name = events[i]["name"]["html"]; 
@@ -74,21 +77,7 @@ function displayEvents(initial_counter, events, callback){
 		if(event_location==null){
 			event_location = "Location unspecified"; 
 		}
-
-		fragment_to_append = "<div id='result_event" + i + "'" + 
-			"class=result_event style='display: none'>" + 
-			"<div id='event_left'>" +
-			"<h3><a href='" + event_url + "'>" + event_name + "</a></h3>" +
-			"</div>" +
-			"<div id='event_right'>" +
-			// Google Maps API Request
-			"<iframe id='map' width='300' height='300' frameborder='0' style='border:0' "+ 
-			"src='https://www.google.com/maps/embed/v1/place?key=" + MAP_API_KEY +
-			"&q=" + event_location + ", Philadelphia'>" + 
-			"</iframe>" + "<br>" +
-			"<p class='result_location_name'>" + event_location + "</p>"  +
-			"</div>" +
-			"</div>"; 
+		fragment_to_append = createNewHtmlFragment(i, event_url, event_name, MAP_API_KEY, event_location); 
 		console.log("appending " + fragment_to_append); 
 		$('#events').append(fragment_to_append); 
 		$('#result_event'+i).show('slow'); 
