@@ -11,25 +11,59 @@ var API_KEY = "BKKRDKVUVRC5WG4HAVLT"
 // e.g. loadEvents(options, function(events){}); 
 function loadEvents(options, callback){
 	console.log("Running Load Events for IDs: " + options[0] + ", " + options[1] + ", " + options[2]); 
-	var urlToRequest = getURL(options); 
+	var urlToRequest = getURL(options, 1); 
 	console.log("Requesting from: " + urlToRequest); 
 
-	// Make API Request: 
+	// Make first API Request: 
 	$.getJSON((urlToRequest), function (data){
-		console.log(data['events']); 
 
 		var page_count = data["pagination"]["page_count"]; 
 		var page_size  = data["pagination"]["page_size"]; 
 		var events 		 = data['events']; 
+
+		console.log("There are " + page_count + "pages"); 
 		
-		callback(events, page_count, page_size); 
-		console.log("API Request complete!"); 
+		//Massive JSON request from all pages and combine them into the array.
+		/*for(i=2; i<=page_count; i++){
+			urlToRequest = getURL(options, i); 
+			console.log("Requesting from: " + urlToRequest); 
+			var events_to_add=[]; 
+			$.getJSON((urlToRequest), function(newData){
+				events_to_add = events_to_add.concat(newData['events']); 
+				console.log(events_to_add); 
+			}); 	
+		} 		*/
+		
+		loadMorePagesOfEvents(options, page_count, function(events_to_add){
+			events = events.concat(events_to_add); 
+			callback(events, page_count, events.length); 
+			console.log(events); 	
+			console.log("API Request complete!"); 
+		}); 	
+
+
 	}); //End API Request
 
 }
 
+function loadMorePagesOfEvents(options, page_count, callback){
+	//Massive JSON request from all pages and combine them into the array.
+	for(i=2; i<=page_count; i++){
+		urlToRequest = getURL(options, i); 
+		console.log("Requesting from: " + urlToRequest); 
+		var events_to_add=[]; 
+		$.getJSON((urlToRequest), function(newData){
+			events_to_add = events_to_add.concat(newData['events']); 
+			console.log(events_to_add); 
+			if(i=page_count) {
+				callback(events_to_add); 
+			}
+		}); 	
+	} 		
+}
+
 // Returns the appropriate URL: 
-function getURL(options){
+function getURL(options, page_number){
 	var urlToReturn = "https://www.eventbriteapi.com/v3/events/search/?" + 
 		// New Specifiers can be defined by: 
 		// "&Specifier=" + WHAT_IS_BEING_SPECIFIED
@@ -37,6 +71,7 @@ function getURL(options){
 		"&categories=" + options[0] + "," +
 			options[1] + "," + 
 			options[2] +
+		"&page="       + page_number +
 		"&token="      + API_KEY; 
 	return urlToReturn; 
 }
