@@ -13,13 +13,17 @@ function loadEvents(options, callback){
 	console.log("Running Load Events for IDs: " + options[0] + ", " + options[1] + ", " + options[2]); 
 	var urlToRequest = getURL(options); 
 	console.log("Requesting from: " + urlToRequest); 
-	var events = 0; 
 
 	// Make API Request: 
 	$.getJSON((urlToRequest), function (data){
 		console.log(data['events']); 
-		events = data['events']; 
-		callback(events); 
+
+		var page_count = data["pagination"]["page_count"]; 
+		var page_size  = data["pagination"]["page_size"]; 
+		var events 		 = data['events']; 
+		
+		callback(events, page_count, page_size); 
+		console.log("API Request complete!"); 
 	}); //End API Request
 
 }
@@ -37,8 +41,18 @@ function getURL(options){
 	return urlToReturn; 
 }
 
-function createNewHtmlFragment(event_number, event_url, event_name, MAP_API_KEY, event_location){
-	var HtmlFragment =  "<div id='result_event" + i + "'" + 
+function createNewHtmlFragment(event_to_display, MAP_API_KEY){
+	var event_name, event_time, event_location, fragment_to_append; 
+	event_name 		 	 	= event_to_display["name"]["html"]; 
+	event_location	 	= event_to_display["venue"]["address"]["address_1"]; 
+	event_url 			 	= event_to_display["url"]; 
+	event_time  			= null; 
+	
+	if(event_location == null) {
+		event_location = "Location unspecified."; 
+	}
+
+	var html_fragment =  "<div id='result_event" + i + "'" + 
 			"class=result_event style='display: none'>" + 
 			"<div id='event_left'>" +
 			"<h3><a href='" + event_url + "'>" + event_name + "</a></h3>" +
@@ -53,5 +67,5 @@ function createNewHtmlFragment(event_number, event_url, event_name, MAP_API_KEY,
 			"</div>" +
 			"</div>"; 
 
-	return HtmlFragment; 
+	return html_fragment; 
 }

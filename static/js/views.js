@@ -22,31 +22,12 @@ $(document).ready( function(){
 		var loading_complete = false; 
 
 		// Pass to models.js: 
-		loadEvents(options, function(events){
+		loadEvents(options, function(events, page_count, page_size){
+			console.log("There are " + page_size + " events."); 
 			var current_counter=0; 
 
 			$('#events_title').show(200); 
-			console.log("API Request complete!"); 
-			console.log(events); 
-			loading_complete = true
-	
-			displayEvents(current_counter, events, function() {
-	
-				$('#loading').hide('slow'); 
-				console.log('displayEvents: Callback!'); 
-				$('#follow_up_action').show('slow'); 
-				current_counter += 6; 
-			}); //End displayEvents
-			
-			$(window).scroll(function (){
-				if  ($(window).scrollTop() == $(document).height() - $(window).height()){
-					console.log(events); 
-					displayEvents(current_counter, events, function(){
-						console.log("Showing five more events."); 
-						current_counter += 6; 
-					}); 
-				}
-			}); 
+			displayOnePage(current_counter, events); 
 		}); //End loadEvents
 	}); //End sendButton
 
@@ -57,27 +38,41 @@ $(document).ready( function(){
 	}); 
 }); //End document.ready
 
-function displayEvents(initial_counter, events, callback){
-	console.log('initial_counter: ' + initial_counter); 
+// Displays an entire 'page' of EventBrite API contents. Basically calls
+// displayFiveEvents repetitively. 
+function displayOnePage(current_counter, events, callback){
+	displayNextFewEvents(current_counter, events, function() {
+	
+		$('#loading').hide('slow'); 
+		console.log('displayEvents: Callback!'); 
+		$('#follow_up_action').show('slow'); 
+		current_counter += 5; 
+	}); //End displayEvents
+			
+	$(window).scroll(function (){
+		if ($(window).scrollTop() == $(document).height() - $(window).height()){
+			displayNextFewEvents(current_counter, events, function(){
+				console.log("Showing five more events."); 
+				current_counter += 5; 
+			}); 
+		}
+	}); 
+}
 
-	// Collects information from the events list
-	var event_name, event_time, event_location, fragment_to_append; 
+
+// Displays next few events. Usually five unless there is less than
+// five events left. In which case, it displays that amount. 
+function displayNextFewEvents(initial_counter, events, callback){
+	console.log('initial_counter: ' + initial_counter); 
 
 	// Selects a rational maximum amount of events to load before more
 	// scrolling is required. 
 	var maximum_display_counter = initial_counter +5; 
-	for (i=initial_counter; i<=maximum_display_counter; i++){
-		// Variable creation: 
-		event_name = events[i]["name"]["html"]; 
-		event_location = events[i]["venue"]["address"]["address_1"]; 
-		event_url = events[i]["url"]; 
-		event_time = null; 
+	for (i=initial_counter; i<maximum_display_counter; i++){
+		
+		//Passes event to models.js function.  
+		fragment_to_append = createNewHtmlFragment(events[i], MAP_API_KEY); 
 
-
-		if(event_location==null){
-			event_location = "Location unspecified"; 
-		}
-		fragment_to_append = createNewHtmlFragment(i, event_url, event_name, MAP_API_KEY, event_location); 
 		console.log("appending " + fragment_to_append); 
 		$('#events').append(fragment_to_append); 
 		$('#result_event'+i).show('slow'); 
