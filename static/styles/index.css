@@ -1,6 +1,3 @@
-html * {
-	font-family: font-family: 'Roboto', sans-serif !important;
-}
 
 #title_bar h3 {
 	display: inline; 
@@ -23,7 +20,8 @@ html * {
 
 span.glyphicon-search {
 	position: relative; 
-	left: 75%;
+	float: right; 
+	right: 5%; 
 	font-size: 2.0em; 
 	color: white; 
 }
