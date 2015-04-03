@@ -5,7 +5,7 @@ from pprint import pprint
 import collections
 
 # CONSTANTS: 
-API_KEY = 'BKKRDKVUVRC5WG4HAVLT'
+API_KEY = '' #INSERT YOUR API_KEY HERE. 
 
 """
 CATEGORIES MODELLING:
