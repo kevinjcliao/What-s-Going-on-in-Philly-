@@ -1,4 +1,4 @@
-var MAP_API_KEY = 'AIzaSyBb8GOC34oXQFicfURjC5A09KAHBY8az2o'
+var MAP_API_KEY = ''; /*INSERT YOUR API_KEY HERE*/
 
 $(document).ready( function(){
 	// Event Listener passes data to the models.loader to fetch
