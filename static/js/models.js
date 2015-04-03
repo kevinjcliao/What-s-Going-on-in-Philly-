@@ -3,7 +3,7 @@
 // Description: A library that handles all large operations involving finding
 // 							lists of events. 
 
-var API_KEY = "BKKRDKVUVRC5WG4HAVLT"
+var API_KEY = ""; /*INSERT YOUR API_KEY HERE*/
 
 // loadEvents sends a AJAX Request to the server. 
 // In order to call the data from load events, 
